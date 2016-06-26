@@ -17,6 +17,7 @@
     "module",
     "rewrite",
     "resolve",
+    "dynamic",
     "rename",
     "require",
     "import"
