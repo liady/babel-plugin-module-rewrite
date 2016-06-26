@@ -1,4 +1,4 @@
-# babel-plugin-module-alias [![Version](https://img.shields.io/npm/v/babel-plugin-module-alias.svg)](https://www.npmjs.org/package/babel-plugin-module-alias)
+# babel-plugin-module-rewrite [![Version](https://img.shields.io/npm/v/babel-plugin-module-rewrite.svg)](https://www.npmjs.org/package/babel-plugin-module-rewrite)
 
 A [babel](http://babeljs.io) plugin to rewrite module imports (and `require`) using a custom function
 
