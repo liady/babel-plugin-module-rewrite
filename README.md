@@ -37,12 +37,4 @@ export default function replaceImport(originalPath, callingFileName, options) {
 
 ## License
 
-MIT, see [LICENSE.md](/LICENSE.md) for details.
-
-
-[ci-image]: https://circleci.com/gh/tleunen/babel-plugin-module-alias.svg?style=shield
-[ci-url]: https://circleci.com/gh/tleunen/babel-plugin-module-alias
-[coverage-image]: https://codecov.io/gh/tleunen/babel-plugin-module-alias/branch/master/graph/badge.svg
-[coverage-url]: https://codecov.io/gh/tleunen/babel-plugin-module-alias
-[resolver-module-alias]: https://github.com/tleunen/eslint-import-resolver-babel-module-alias
-[eslint-plugin-import]: https://github.com/benmosher/eslint-plugin-import
+MIT
