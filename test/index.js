@@ -8,7 +8,8 @@ describe('Babel plugin module alias', () => {
     const transformerOpts = {
         plugins: [
             [plugin, {
-                replaceFunc: './test/replaceFunc.js'
+                replaceFunc: './test/replace/replaceFunc.js',
+                replaceHandlerName: 'replaceImport'
             }]
         ]
     };

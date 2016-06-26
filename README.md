@@ -11,7 +11,7 @@ You can supply a replace function to dynamically replace module paths when Babel
 Install the plugin
 
 ```
-$ npm install --save babel babel-plugin-module-rewrite
+$ npm install --save-dev babel babel-plugin-module-rewrite
 ```
 
 Specify the plugin in your `.babelrc` with the file that exports the replace function.

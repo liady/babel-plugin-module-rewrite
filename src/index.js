@@ -6,17 +6,22 @@ function getReplaceFunc(replaceFuncPath) {
 
 export function mapModule(source, file, state) {
     const opts = state.opts;
+    const replaceContainer = getReplaceFunc(opts.replaceFunc);
 
-    // Get replace func
-    const replace = getReplaceFunc(opts.replaceFunc).default || getReplaceFunc(opts.replaceFunc);
-
-    // If the config comes back as null, we didn't find it, so throw an exception.
-    if(replace === null) {
+    if(!replaceContainer){
         throw new Error('Cannot find replace function file: ' + opts.replaceFunc);
     }
 
+    const replaceHandlerName = opts.replaceHandlerName || 'default';
+    const replace = replaceContainer[replaceHandlerName] || replaceContainer;
+
+    // If the result is not a function, throw
+    if(!replace || typeof replace !== 'function') {
+        throw new Error('Cannot find replace handler in: ' + opts.replaceFunc + " with name: " + replaceHandlerName);
+    }
+
     const result = replace(source, file, opts);
-    if(result!==source) {
+    if(result !== source) {
         return result;    
     } else {
         return;
