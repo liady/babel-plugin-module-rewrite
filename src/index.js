@@ -2,13 +2,11 @@ import { resolve, dirname } from 'path';
 
 function getReplaceFunc({ replaceFunc, replaceHandlerName = 'default', resolveFrom = 'process.cwd()'} = {}) {
     const replaceContainer = require(resolve(eval(resolveFrom), replaceFunc));
-
     if(!replaceContainer){
         throw new Error('Cannot find replace function file: ' + replaceFunc);
     }
-
+    
     const replace = replaceContainer[replaceHandlerName] || replaceContainer;
-
     // If the result is not a function, throw
     if(!replace || typeof replace !== 'function') {
         throw new Error('Cannot find replace handler in: ' + replaceFunc + " with name: " + replaceHandlerName);
