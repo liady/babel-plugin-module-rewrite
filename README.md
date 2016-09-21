@@ -1,6 +1,6 @@
 # babel-plugin-module-rewrite
 [![Version](https://img.shields.io/npm/v/babel-plugin-module-rewrite.svg)](https://www.npmjs.org/package/babel-plugin-module-rewrite)
-[![Build Status](https://travis-ci.org/liady/babel-plugin-module-rewrite?branch=master)](https://travis-ci.org/liady/babel-plugin-module-rewrite)
+[![Build Status](https://travis-ci.org/liady/babel-plugin-module-rewrite?branch=master)](https://travis-ci.org/liady/babel-plugin-module-rewrite.svg)
 
 A [babel](http://babeljs.io) plugin to rewrite module imports (and `require`) using a custom function
 
