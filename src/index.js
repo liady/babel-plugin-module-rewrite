@@ -1,35 +1,39 @@
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
 
-function getReplaceFunc(replaceFuncPath) {
-    return require(resolve(process.cwd(), replaceFuncPath));;
-}
-
-export function mapModule(source, file, state) {
-    const opts = state.opts;
-    const replaceContainer = getReplaceFunc(opts.replaceFunc);
+function getReplaceFunc({ replaceFunc, replaceHandlerName = 'default', resolveFrom = 'process.cwd()'} = {}) {
+    const replaceContainer = require(resolve(eval(resolveFrom), replaceFunc));
 
     if(!replaceContainer){
-        throw new Error('Cannot find replace function file: ' + opts.replaceFunc);
+        throw new Error('Cannot find replace function file: ' + replaceFunc);
     }
 
-    const replaceHandlerName = opts.replaceHandlerName || 'default';
     const replace = replaceContainer[replaceHandlerName] || replaceContainer;
 
     // If the result is not a function, throw
     if(!replace || typeof replace !== 'function') {
-        throw new Error('Cannot find replace handler in: ' + opts.replaceFunc + " with name: " + replaceHandlerName);
+        throw new Error('Cannot find replace handler in: ' + replaceFunc + " with name: " + replaceHandlerName);
     }
 
-    const result = replace(source, file, opts);
-    if(result !== source) {
-        return result;    
-    } else {
-        return;
-    }
-    
+    return replace;
 }
 
-export default ({ types: t }) => {
+export default ({ types: t }, a, b) => {
+    let cachedReplaceFunction;
+
+    function mapModule(source, file, state) {
+        const opts = state.opts;
+        if(!cachedReplaceFunction) {
+            cachedReplaceFunction = getReplaceFunc(opts);
+        }
+        const replace = cachedReplaceFunction;
+        const result = replace(source, file, opts);
+        if(result !== source) {
+            return result;    
+        } else {
+            return;
+        }
+    }
+
     function transformRequireCall(nodePath, state) {
         if (
             !t.isIdentifier(nodePath.node.callee, { name: 'require' }) &&
