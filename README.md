@@ -32,7 +32,7 @@ export default function replaceImport(originalPath, callingFileName, options) {
     if(callingFileName.indexOf('/utils/') !== -1) {
         return originalPath.replace('~', 'utils');
     } else {
-        return originalPath. replace('~', 'common');
+        return originalPath.replace('~', 'common');
     }
 }
 ```
