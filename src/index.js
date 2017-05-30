@@ -27,7 +27,7 @@ export default ({ types: t }, a, b) => {
         const replace = cachedReplaceFunction;
         const result = replace(source, file, opts);
         if(result !== source) {
-            return result;    
+            return result;
         } else {
             return;
         }
@@ -55,15 +55,12 @@ export default ({ types: t }, a, b) => {
         }
     }
 
-    function transformImportCall(nodePath, state) {
+    function transformImportExportCall(nodePath, state) {
         const moduleArg = nodePath.node.source;
         if (moduleArg && moduleArg.type === 'StringLiteral') {
             const modulePath = mapModule(moduleArg.value, state.file.opts.filename, state);
             if (modulePath) {
-                nodePath.replaceWith(t.importDeclaration(
-                    nodePath.node.specifiers,
-                    t.stringLiteral(modulePath)
-                ));
+                nodePath.node.source = t.stringLiteral(modulePath);
             }
         }
     }
@@ -77,9 +74,14 @@ export default ({ types: t }, a, b) => {
             },
             ImportDeclaration: {
                 exit(nodePath, state) {
-                    return transformImportCall(nodePath, state);
+                    return transformImportExportCall(nodePath, state);
                 }
-            }
+            },
+            ExportDeclaration: {
+                exit(nodePath, state) {
+                    return transformImportExportCall(nodePath, state);
+                }
+            },
         }
     };
 };

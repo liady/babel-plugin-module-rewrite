@@ -31,6 +31,13 @@ describe('Babel plugin module alias', () => {
 
                     assert.strictEqual(result.code, 'import utils from "$ls";');
                 });
+
+                it('with an export statement', () => {
+                    const code = 'export { utils } from "utils";';
+                    const result = transform(code, transformerOpts);
+
+                    assert.strictEqual(result.code, 'export { utils } from "$ls";');
+                });
             });
         });
     });
